@@ -1,1 +1,557 @@
-<h1>test1</h1>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [['$','$'], ['\\(','\\)']]}});</script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS": {"availableFonts":["TeX"],"scale": 150}});</script>
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+</style>
+
+</head>
+<body>
+<h1 id="%E4%BC%9A%E8%AE%A1%E5%9F%BA%E7%A1%80">会计基础</h1>
+<hr>
+<h2 id="%E5%AF%BC%E8%AE%BA">导论</h2>
+<ol>
+<li>会计的定义：商业语言的表达</li>
+<li>会计的目的：记录价值的交换</li>
+</ol>
+<h2 id="%E4%BC%9A%E8%AE%A1%E5%AF%B9%E8%B1%A1%E4%B8%8E%E4%BC%9A%E8%AE%A1%E5%81%87%E8%AE%BE">会计对象与会计假设</h2>
+<ol>
+<li>三个要素：<em>主体，时点，金额</em></li>
+<li>识别主体：
+<ul>
+<li>法律主体和会计主体一致</li>
+<li>会计主体超越法律主体</li>
+<li>首先要明确会计主体</li>
+</ul>
+</li>
+<li>其他假设：
+<ul>
+<li><em>主体</em>：持续经营假设</li>
+<li><em>时点</em>：会计分期假设
+<ol>
+<li>公历年度：xxxx年1月1日-xxxx年12月31日</li>
+<li>自然营业年度：a年b月1日-a+1年b-1月31日</li>
+</ol>
+</li>
+<li><em>金额</em>：货币计量假设</li>
+</ul>
+</li>
+<li>谨慎性原则
+<ul>
+<li>应选择低估好处、高估损失的方法</li>
+</ul>
+</li>
+</ol>
+<h2 id="%E4%BC%9A%E8%AE%A1%E8%A6%81%E7%B4%A0%E4%B8%8E%E4%BC%9A%E8%AE%A1%E6%81%92%E7%AD%89%E5%BC%8F">会计要素与会计恒等式</h2>
+<blockquote>
+<p>水流不腐，人活不输</p>
+</blockquote>
+<ol>
+<li>单式记账：只记录资金流入流出
+<ul>
+<li>问题：
+<ol>
+<li>业务复杂的情况</li>
+<li>债权增多</li>
+<li>股东投入</li>
+<li>整体盈利情况</li>
+<li>纠错能力不足</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>复式记账：记录资金的去向和来源
+<blockquote>
+<p>有借必有贷，借贷必相等
+- 好处：
+1. 区分不同种类的来源和去向
+2. 易于检查、避免错误</p>
+</blockquote>
+</li>
+<li>会计恒等式：
+<ul>
+<li>目的：
+<ol>
+<li>在一个时点上，只能看到资金运动的结果和来源</li>
+<li>在一段时间内，能看到资金运动变化的情况</li>
+</ol>
+</li>
+<li>等式：
+<ol>
+<li>资产(借)=负债+所有者权益(贷)</li>
+<li>收入-费用=利润</li>
+</ol>
+</li>
+<li>举例：
+<ol>
+<li>股东认缴注册资本x元：<br>
+-&gt; 银行存款(资产)+x<br>
+-&gt; 实收资本(所有者权益)+x</li>
+<li>企业从银行存款中提取x元现金备用：<br>
+-&gt; 现金(资产)+x<br>
+-&gt; 银行存款(资产)-x</li>
+<li>企业从供应商得到面粉等原料，总价x元，钱未付清：<br>
+-&gt; 存货(资产)+x<br>
+-&gt; 应付账款(负债)+x</li>
+<li>企业购买设备，用银行存款支付x元：<br>
+-&gt; 固定资产(资产)+x<br>
+-&gt; 银行存款(资产)-x</li>
+<li>偿还债务x元：<br>
+-&gt; 银行存款(资产)-x<br>
+-&gt; 应付账款(负债)-x</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>资产：
+<ul>
+<li>性质：
+<ol>
+<li>能带来以货币计量的利益</li>
+<li>企业控制或拥有</li>
+</ol>
+</li>
+<li>分类：
+<ol>
+<li>资金资产/非现金资产</li>
+<li>流动资产/非流动资产</li>
+<li>隐形资产</li>
+</ol>
+</li>
+<li>流动资产：短期内能变成现金
+<ol>
+<li>库存现金/银行存款</li>
+<li>应收票据：客户出具的商业汇票</li>
+<li>应收账款：客户口头承诺没有票据</li>
+<li>预付账款：预付给供应商的贷款</li>
+<li>存货：在一个营业周期内</li>
+</ol>
+</li>
+<li>非流动资产：短期内不能变成现金</li>
+<li>隐形资产：没有记录到会计系统内
+<ol>
+<li>品牌：无法用货币可靠计量</li>
+<li>人力资源：不是企业拥有的</li>
+<li>关系：以上两个问题都有</li>
+<li>商业合同：尚未履行</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>负债：
+<ul>
+<li>性质：
+<ol>
+<li>过去事项-&gt;当下亏欠</li>
+<li>履行义务-&gt;未来一个时点经济利益流出</li>
+</ol>
+</li>
+<li>分类：
+<ol>
+<li>流动负债/非流动负债</li>
+</ol>
+</li>
+<li>流动负债：(和流动资产相反)
+<ol>
+<li>短期借款</li>
+<li>应付与预收款项</li>
+<li>应交税金</li>
+</ol>
+</li>
+<li>长期负债：
+<ol>
+<li>长期借款</li>
+<li>应付债券</li>
+<li>长期应付款</li>
+</ol>
+</li>
+<li>隐形负债：
+<ol>
+<li>法律诉讼</li>
+<li>担保</li>
+<li>其他(退货承诺)</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>所有者权益：<br>
+企业投资者对企业的剩余索取权</li>
+</ol>
+<h2 id="%E8%B4%A2%E5%8A%A1%E6%8A%A5%E8%A1%A8%E5%8F%8A%E7%9B%B8%E4%BA%92%E5%8B%BE%E7%A8%BD%E5%85%B3%E7%B3%BB">财务报表及相互勾稽关系</h2>
+<h2 id="%E7%AD%B9%E8%B5%84%E6%B4%BB%E5%8A%A8">筹资活动</h2>
+<h2 id="%E6%8A%95%E8%B5%84%E6%B4%BB%E5%8A%A8">投资活动</h2>
+<h2 id="%E7%BB%8F%E8%90%A5%E6%B4%BB%E5%8A%A8">经营活动</h2>
+<h2 id="%E4%BC%9A%E8%AE%A1%E5%BE%AA%E7%8E%AF">会计循环</h2>
+
+</body>
+</html>
